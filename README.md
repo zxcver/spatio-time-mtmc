@@ -5,10 +5,10 @@
 We release the code on AI City 2021 Challenge ([https://www.aicitychallenge.org/](https://www.aicitychallenge.org/)) Track 3. We get IDF1 score  0.5654.
 
 ## Install
-
+please note your cuda version and reference [get-started](https://pytorch.org/get-started/locally/)
 ```
 conda create --name st-mtmc python==3.7
-pip3 install torch torchvision torchaudio (match your cuda version and reference [get-started](https://pytorch.org/get-started/locally/))
+pip3 install torch torchvision torchaudio 
 git clone https://github.com/facebookresearch/detectron2
 cd detectron2
 python setup.py build develop
