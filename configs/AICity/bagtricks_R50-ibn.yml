@@ -1,0 +1,19 @@
+_BASE_: ../Base-bagtricks.yml
+
+MODEL:
+  BACKBONE:
+    WITH_IBN: True
+
+DATASETS:
+  NAMES: ("Aicity",)
+  TESTS: ("Aicity",)
+
+TEST:
+  EVAL_PERIOD: 10
+  IMS_PER_BATCH: 256
+
+INPUT:
+  SIZE_TRAIN: [ 256, 256 ]
+  SIZE_TEST: [ 256, 256 ]
+
+OUTPUT_DIR: logs/aicity/bagtricks_R50-ibn

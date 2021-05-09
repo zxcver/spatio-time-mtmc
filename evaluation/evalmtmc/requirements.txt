@@ -1,0 +1,7 @@
+pandas>=0.24.1
+numpy>=1.14.0
+pytrec_eval>=0.3
+motmetrics>=1.1.3
+lapsolver>=1.0.2
+Pillow>=4.2.1
+scipy>=1.0.0
