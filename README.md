@@ -5,7 +5,7 @@
 We release the code on AI City 2021 Challenge ([https://www.aicitychallenge.org/](https://www.aicitychallenge.org/)) Track 3. We get IDF1 score  0.5654.
 
 ## Install
-please note your cuda version and reference [get-started](https://pytorch.org/get-started/locally/)
+please note your cuda version and reference [get-started](https://pytorch.org/get-started/locally/) while install pytorch.
 ```
 conda create --name st-mtmc python==3.7
 pip3 install torch torchvision torchaudio 
