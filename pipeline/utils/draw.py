@@ -67,12 +67,10 @@ EC = [
 
 def draw_and_save(img_path, save_path, bbox_list, keypoints_list,):
     img = cv2.imread(img_path)
-    # 绘制center pose bbox
     for bbox in bbox_list:
         img = cv2.rectangle(
             img, (bbox[0], bbox[1]), (bbox[0] + bbox[2], bbox[1] + bbox[3]), (0, 0, 255), 2
         )
-    # 绘制center pose bbox
     for keypoints in keypoints_list:
         points = np.array(keypoints, dtype=np.int32).reshape(17, 2)
         for j in range(len(points)):
@@ -93,7 +91,6 @@ def draw_and_save(img_path, save_path, bbox_list, keypoints_list,):
 
 def draw_pose(image, keypoints_list,):
     img = np.ascontiguousarray(np.copy(image))
-    # 绘制center pose bbox
     for keypoints in keypoints_list:
         points = np.array(keypoints, dtype=np.int32).reshape(17, 2)
         for j in range(len(points)):

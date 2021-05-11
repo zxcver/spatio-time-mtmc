@@ -68,7 +68,6 @@ class Evaluator(object):
     def eval_file(self, filename):
         self.reset_accumulator()
         result_frame_dict = read_results(filename,"mot")
-        # 如果输入的预测文件为gt.txt，此处is_gt需要设置为True，不然不需要考虑的记录也会纳入计算中
         frames = sorted(list(set(self.gt_frame_dict.keys()) | set(result_frame_dict.keys())))
         for frame_id in frames:
             trk_objs = result_frame_dict.get(frame_id, [])

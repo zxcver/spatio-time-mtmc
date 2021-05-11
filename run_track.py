@@ -40,10 +40,6 @@ def init_extractor(emb_type,emb_model):
     return extractor
 
 
-# feat_alpha 用于前后帧特征比例平滑
-# embedding_thre 特征匹配的阈值
-# iou_thre1 第一次iou匹配阈值
-# iou_thre2 第二次iou匹配阈值
 def init_tracktor(track_type,allsub_imgs,conf,feat_alpha,embedding_thre,iou_thre1,iou_thre2):
     if track_type == 'dense':
         tracktor = DenseTrack(allsub_imgs, conf, feat_alpha,embedding_thre,iou_thre1,iou_thre2,frame_rate=10)  
@@ -153,7 +149,6 @@ def eval_multiseq(args, allsub_imgs, pro_len):
                 # online_targets = [track for track in tracked_stracks if track.is_activated]
                 matchmes_dict[seqkey]["tracked_nums"] += len(online_targets)
                 for t in online_targets:
-                    # note : 检测框换成跟踪框
                     tlwh = t.det_tlwh
                     # tlwh = t.tlwh
                     tid = t.track_id

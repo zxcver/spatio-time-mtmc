@@ -78,7 +78,6 @@ class DenseTracker(object):
         dists = matching.embedding_distance(strack_pool, tem_detections)
         # dists = matching.gate_cost_matrix(self.kalman_filter, dists, strack_pool, tem_detections)
         dists = matching.fuse_motion(self.kalman_filter, dists, strack_pool, tem_detections)
-        #距离的阈值上限  默认inf
         matches, u_track, u_detection = matching.linear_assignment(dists, thresh=self.embedding_thre)
 
         for itracked, idet in matches:

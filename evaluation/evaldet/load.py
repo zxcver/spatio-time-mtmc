@@ -86,7 +86,6 @@ cam_framenum = {
 }
 
 
-# fusion 图像数据与结果文件
 def FusionIGA(num_frame, rmotgt):
     results_dict = {}
     for frame_index in range(1 ,num_frame+1):
@@ -104,7 +103,6 @@ def FusionIGA(num_frame, rmotgt):
     return results_dict
 
 
-# 按帧整理MOTGT
 def FRestructMot(motgt):
     valid_redict = {}
     for line in motgt:

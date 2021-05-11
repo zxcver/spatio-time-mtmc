@@ -1,4 +1,3 @@
-# 单个相机内进行过滤操作，过滤后的多目标跟踪结果，都要参与mtmc的匹配，不进行二次过滤
 import argparse
 import os
 import os.path as osp
@@ -52,10 +51,8 @@ def run_filter(args):
                 lines = reader.readlines() 
             valid_redict = FRestructTrack(lines)
             for track_id,track_list in valid_redict.items():
-                # 过滤掉track长度小于3的跟踪id
                 if len(track_list)<5:
                     continue
-                # 过滤静止不动的车
                 if analyse_position(track_list,args.xvar_thres, args.yvar_thres ,args.logic):
                     continue
                 for track in track_list:

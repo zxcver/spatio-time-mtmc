@@ -11,7 +11,6 @@ def run(opts):
         os.makedirs(out_path)
     with open(opts.out_file, 'w') as writer:
         for line in src_dets:
-            # 2,-1,1089.00,109.00,22.00,15.00,0.86,-1,-1,-1
             frame_id,track_id,x,y,w,h,score,_,_,_ = line.split(',')
             x,y,w,h = float(x),float(y),float(w),float(h)
             x = int(x - w/(opts.div*2))

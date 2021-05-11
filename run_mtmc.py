@@ -142,7 +142,6 @@ def make_needcomputed(all_tracklets):
                         for j_tid, j_cam_tracklet in j_cam_tracklets.items():
                             if j_tid > i_tid:
                                 if len(j_cam_tracklet["feat"]) != 0:
-                                    # 先小后大的元组
                                     trackpair_list.append((i_tid, j_tid))
                                     # trackpair_list.append({i_tid, j_tid})
                                     feat_list.append([i_cam_tracklet["feat"], j_cam_tracklet["feat"]]) 
@@ -270,15 +269,12 @@ def extract_img_mlp(data_path,scence_id,n_job,tid_redict,cfid_redict,tid_outmove
     print("end extract_img .....")
 
 
-#自西向东
 def match_w2e(all_tracklets,computed,tid_redict,tid_outmovement,dthre):
     matched = []
-    #inter_time = [[362,605],[272,323],[475,542],[287,512],[262,585]]
     inter_time = [[262,905],[172,623],[375,842],[187,812],[162,885]]
     sorted_cams = [46,45,44,43,42,41]
     for index in range(len(sorted_cams)):
         if index == len(sorted_cams)-1:
-            #到达最后一个相机
             break
         cur_camid,next_camid = sorted_cams[index],sorted_cams[index+1]
         cur_cam_tracklets,next_cam_tracklets = all_tracklets[cur_camid],all_tracklets[next_camid]
@@ -298,20 +294,15 @@ def match_w2e(all_tracklets,computed,tid_redict,tid_outmovement,dthre):
             if outmovement in [10,11,12]:
                 nexttid_filter.append(next_tid)
                 nexttracklet_filter.append(next_cam_tracklet)
-
-        #匹配curtid_filter和nexttid_filter
         cost_matrix = np.zeros((len(curtid_filter), len(nexttid_filter)), dtype=np.float)
         for cur_index, cur_tid in enumerate(curtid_filter):
             cur_tracklet = tid_redict[cur_tid]
             cur_frame_list = [i[2] for  i in cur_tracklet]
-            #最后消失的时间
             last_frame = max(cur_frame_list)
             for next_index, next_tid in enumerate(nexttid_filter):
                 next_tracklet = tid_redict[next_tid]
                 next_frame_list = [i[2] for  i in next_tracklet]
-                #第一次出现的时间
                 first_frame = min(next_frame_list)
-                #时间逻辑，如果最后消失的时间大于第一次出现的时间
                 if last_frame> first_frame:
                     cost_matrix[cur_index, next_index] = np.inf
                     continue
@@ -334,19 +325,15 @@ def match_w2e(all_tracklets,computed,tid_redict,tid_outmovement,dthre):
             matched.append({cur_tid,next_tid})
     return matched
 
-#自东向西
 def match_e2w(all_tracklets,computed,tid_redict,tid_outmovement,dthre):
     matched = []
-    #inter_time = [[299,1243],[176,694],[362,450],[120,254],[320,400]]
     inter_time = [[199,1543],[76,994],[262,750],[20,554],[220,700]]
     sorted_cams = [41,42,43,44,45,46]
     for index in range(len(sorted_cams)):
         if index == len(sorted_cams)-1:
-            #到达最后一个相机
             break
         cur_camid,next_camid = sorted_cams[index],sorted_cams[index+1]
         cur_cam_tracklets,next_cam_tracklets = all_tracklets[cur_camid],all_tracklets[next_camid]
-
         curtid_filter = []
         curtracklet_filter = []
         for cur_tid, cur_cam_tracklet in cur_cam_tracklets.items():
@@ -363,21 +350,15 @@ def match_e2w(all_tracklets,computed,tid_redict,tid_outmovement,dthre):
             if outmovement in [5,4,6]:
                 nexttid_filter.append(next_tid)
                 nexttracklet_filter.append(next_cam_tracklet)
-
-
-        #匹配curtid_filter和nexttid_filter
         cost_matrix = np.zeros((len(curtid_filter), len(nexttid_filter)), dtype=np.float)
         for cur_index, cur_tid in enumerate(curtid_filter):
             cur_tracklet = tid_redict[cur_tid]
             cur_frame_list = [i[2] for  i in cur_tracklet]
-            #最后消失的时间
             last_frame = max(cur_frame_list)
             for next_index, next_tid in enumerate(nexttid_filter):
                 next_tracklet = tid_redict[next_tid]
                 next_frame_list = [i[2] for  i in next_tracklet]
-                #第一次出现的时间
                 first_frame = min(next_frame_list)
-                #时间逻辑，如果最后消失的时间大于第一次出现的时间
                 if last_frame > first_frame:
                     cost_matrix[cur_index, next_index] = np.inf
                     continue

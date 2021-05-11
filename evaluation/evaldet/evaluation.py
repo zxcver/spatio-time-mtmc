@@ -122,12 +122,10 @@ class Evaluation(object):
             groundtruth = groundtruths[gkey]
             prediction = predictions[gkey]
             # for single image
-            # gt决定num_pose数量  det决定det_state数量
             det_state, num_pos = self.cumTpFp(groundtruth, prediction, label, self.overlapRatio)
             self.all_num_pos += num_pos
             state_all += det_state
         for state in state_all:
-            # 对于state_all，只有tp和fp，没有fn（漏检）
             self.tp.append((state[1], state[2]))
             self.fp.append((state[1], state[3]))
         return 0
@@ -149,10 +147,8 @@ class Evaluation(object):
         tp_th_num = 0
         for index, pair in enumerate(tp_copy):
             if tp_copy[index][0] > self.threshold:
-                # 所有检测到bbox
                 tp_th_num += 1
                 if tp_copy[index][1] == 1:
-                    # 所有对的bbox
                     tp_th += 1
         return tp_th, tp_th_num
 
@@ -164,7 +160,6 @@ class Evaluation(object):
         tp_th, tp_th_num = self.CumSum_tp()
         fp_th, fp_th_num = self.CumSum_fp()
         fn_th = gt_th - tp_th
-        # 计算 recall 和 precision
         precision = float(tp_th) / float(tp_th + fp_th)
         recall = float(tp_th) / float(tp_th + fn_th)
         return gt_th, tp_th, fp_th, fn_th, precision, recall

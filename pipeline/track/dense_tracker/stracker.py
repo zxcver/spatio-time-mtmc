@@ -73,7 +73,6 @@ class STrack(BaseTrack):
         self.mean, self.covariance = self.kalman_filter.update(
             self.mean, self.covariance, self.tlwh_to_xyah(new_track.tlwh)
         )
-        # 每一帧都根据det更新det_tlwh
         self.det_tlwh = new_track.det_tlwh
         self.update_features(new_track.curr_feat)
         self.tracklet_len = 0
@@ -94,7 +93,6 @@ class STrack(BaseTrack):
         self.frame_id = frame_id
         self.tracklet_len += 1
 
-        # 每一帧都根据det更新det_tlwh
         self.det_tlwh = new_track.det_tlwh
 
         new_tlwh = new_track.tlwh

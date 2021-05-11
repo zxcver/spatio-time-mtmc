@@ -48,7 +48,7 @@ def get_outlines(cam_id):
         line_10 = [(397, 676), (401, 942)]
         line_11 = [(248, 409), (356, 543)]
         line_12 = [(126, 394), (248, 409)]
-        #当前的directions可以直接用，与原始的directions定义刚好相反
+
         directions = [3, 3, 1, 2, 2, 2, 1, 2, 2, 1, 1, 4]
         lines = [line_1, line_2, line_3, line_4, line_5, line_6, line_7, line_8, line_9, line_10, line_11, line_12]
     elif cam_id == 43:
@@ -182,7 +182,6 @@ def plot_trackandmovemrnt(img_path, tlwhs, obj_ids, movements, scores=None, fram
                     thickness=text_thickness)
     return im
 
-# 按track id理MOTGT
 def FRestructTrack(motgt):
     valid_redict = {}
     for line in motgt:
@@ -242,11 +241,8 @@ def analyse_outmovement(tid_redict):
     tid_hasmovement = False
     for tid, tracklets in tid_redict.items():
         cam, camid, _, _ = tracklets[0]
-        # if camid!=42:
-        #     continue
         tid_hasmovement = False
         mov_nums, lines, directions = get_outlines(camid)
-        # 从第一帧开始向后遍历，找到与line相交的一个线段，n n+1，并找这个tracklet的最后一帧，判断directions
         for tracklet_index in range(len(tracklets)):
             if tracklet_index == len(tracklets)-1:
                 break
@@ -258,7 +254,6 @@ def analyse_outmovement(tid_redict):
             cur_center_x, cur_center_y = int(cur_x + 0.5 * cur_w), int(cur_y + 0.5 * cur_h)
             next_center_x, next_center_y = int(next_x + 0.5 * next_w), int(next_y + 0.5 * next_h)
             cur_ponit,next_point = (cur_center_x, cur_center_y), (next_center_x, next_center_y)
-            # 遍历lines
             for mov in range(mov_nums):
                 if not lines[mov]:
                     continue
@@ -290,7 +285,6 @@ def analyse_inmovement(tid_redict):
         cam, camid, _, _ = tracklets[0]
         tid_hasmovement = False
         mov_nums, lines, directions = get_inlines(camid)
-        # 从第一帧开始向后遍历，找到与line相交的一个线段，n n+1，并找这个tracklet的最后一帧，判断directions
         for tracklet_index in range(len(tracklets)):
             if tracklet_index == len(tracklets)-1:
                 break
@@ -302,7 +296,6 @@ def analyse_inmovement(tid_redict):
             cur_center_x, cur_center_y = int(cur_x + 0.5 * cur_w), int(cur_y + 0.5 * cur_h)
             next_center_x, next_center_y = int(next_x + 0.5 * next_w), int(next_y + 0.5 * next_h)
             cur_ponit,next_point = (cur_center_x, cur_center_y), (next_center_x, next_center_y)
-            # 遍历lines
             for mov in range(mov_nums):
                 if not lines[mov]:
                     continue
@@ -335,7 +328,6 @@ def drawsave_api(args_list):
 
 
 def merge_movement(tid_redict, tid_inmovement, tid_outmovement):
-    #用in 补充 out
     all_tracklets_num = 0
     has_movement_num = 0
     for tid, tracklets in tid_redict.items():
