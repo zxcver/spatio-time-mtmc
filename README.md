@@ -2,7 +2,7 @@
 
 ## Introduction
 
-We release the code on AI City 2021 Challenge ([https://www.aicitychallenge.org/](https://www.aicitychallenge.org/)) Track 3,[AiForward - Team15](https://github.com/NVIDIAAICITYCHALLENGE/2021AICITY_Code_From_Top_Teams). We get IDF1 score  0.5654.
+We release the code on AI City 2021 Challenge ([https://www.aicitychallenge.org/](https://www.aicitychallenge.org/)) Track 3, [AiForward - Team15](https://github.com/NVIDIAAICITYCHALLENGE/2021AICITY_Code_From_Top_Teams). We get IDF1 score  0.5654.
 
 ## Install
 please note your cuda version and reference [get-started](https://pytorch.org/get-started/locally/) while install pytorch.
