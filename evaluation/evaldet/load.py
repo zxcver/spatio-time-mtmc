@@ -147,9 +147,3 @@ def LoadDet(path, scene_id, final_dir='gt',file_type='gt'):
         all_DetGT[cam_id] = FusionIGA(num_frame,valid_redict)
     return all_DetGT
 
-
-if __name__ == "__main__":
-    # test load
-    all_MRGT = LoadMRGTs("/mnt/nfs-internstorage/train_data/AIFWMR4-7500")
-    all_MRPRE = LoadPREs("example/aifw4_dlacoco30")
-    print("load success")
